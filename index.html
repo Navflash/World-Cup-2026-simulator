@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FIFA World Cup 2026 Simulator</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="header">
+  <h1>FIFA World Cup 2026 Simulator</h1>
+  <p>Simulate the World Cup</p>
+</div>
+
+<div class="tabs">
+  <div class="tab" data-tab="live" onclick="switchTab('live')">Live</div>
+  <div class="tab active" data-tab="groups" onclick="switchTab('groups')">Groups</div>
+  <div class="tab" data-tab="third" onclick="switchTab('third')">3rd Place</div>
+  <div class="tab disabled" data-tab="bracket" onclick="switchTab('bracket')">Bracket</div>
+</div>
+
+<div id="live-section" class="section">
+  <div class="live-header">
+    <div class="live-dot"></div>
+    <h2>Today's Matches</h2>
+    <span id="live-date"></span>
+  </div>
+  <div class="today-matches" id="today-matches"></div>
+  <div class="section-label">Group Standings</div>
+  <div class="standings-grid" id="standings-grid"></div>
+</div>
+
+<div id="groups-section" class="section active">
+  <div class="info-banner">
+    <span style="font-size:16px">&#x2195;</span>
+    Drag teams or use arrows to set predicted final positions. 1st-2nd qualify, 3rd may qualify as best third.
+  </div>
+  <div class="groups-grid" id="groups-grid"></div>
+  <div class="action-bar">
+    <button class="btn btn-primary" onclick="switchTab('third')">Continue to 3rd Place Selection &rarr;</button>
+  </div>
+</div>
+
+<div id="third-section" class="section">
+  <div class="third-place-section">
+    <h3>Select 8 Best Third-Place Teams</h3>
+    <p>Choose which 8 of the 12 third-placed teams qualify for the Round of 32.</p>
+    <div class="info-banner" style="flex-direction:column;align-items:flex-start;gap:6px;margin-bottom:14px">
+      <strong style="color:var(--text);font-size:13px">How are the 8 best third-placed teams decided? (FIFA criteria in order)</strong>
+      <ol style="margin:0;padding-left:20px;font-size:12px;line-height:1.7;color:var(--text-dim)">
+        <li>Greatest number of <strong style="color:var(--text)">points</strong> in all group matches</li>
+        <li>Superior <strong style="color:var(--text)">goal difference</strong> in all group matches</li>
+        <li>Greatest number of <strong style="color:var(--text)">goals scored</strong> in all group matches</li>
+        <li>Highest <strong style="color:var(--text)">team conduct score</strong> (fewest yellow/red cards)</li>
+        <li>Ranking in the latest <strong style="color:var(--text)">FIFA World Ranking</strong></li>
+      </ol>
+    </div>
+    <div class="third-place-grid" id="third-place-grid"></div>
+    <div class="tp-count" id="tp-count">0 of 8 selected</div>
+  </div>
+  <div class="action-bar">
+    <button class="btn btn-secondary" onclick="switchTab('groups')">&larr; Back to Groups</button>
+    <button class="btn btn-primary" id="generate-btn" onclick="generateBracket()" disabled>Generate Bracket &rarr;</button>
+  </div>
+</div>
+
+<div id="bracket-section" class="section">
+  <div class="action-bar" style="justify-content: space-between;">
+    <button class="btn btn-secondary" onclick="switchTab('third')">&larr; Back</button>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-secondary" onclick="resetBracket()">Reset Bracket</button>
+      <button class="btn btn-gold" onclick="simulateAll()">Simulate Random</button>
+    </div>
+  </div>
+  <div class="winner-display" id="winner-display">
+    <div class="trophy">&#x1F3C6;</div>
+    <div class="champ-name" id="champ-name"></div>
+    <div class="champ-label">World Cup 2026 Champion</div>
+  </div>
+  <div class="bracket-container">
+    <div class="bracket-wrapper" id="bracket"></div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
