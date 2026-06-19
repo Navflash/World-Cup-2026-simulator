@@ -41,13 +41,13 @@ async function renderLive() {
       : `<span class="vs">vs</span>`;
 
     card.innerHTML = `
-      <div class="match-time">${m.time}${m.group ? ' &mdash; Group ' + m.group : ''} ${statusBadge}</div>
+      <div class="match-time">${esc(m.time)}${m.group ? ' &mdash; Group ' + esc(m.group) : ''} ${statusBadge}</div>
       <div class="match-teams">
-        <span>${getFlag(m.home)}</span> <strong>${m.home}</strong>
+        <span>${getFlag(m.home)}</span> <strong>${esc(m.home)}</strong>
         ${scoreOrVs}
-        <strong>${m.away}</strong> <span>${getFlag(m.away)}</span>
+        <strong>${esc(m.away)}</strong> <span>${getFlag(m.away)}</span>
       </div>
-      <div class="venue">${m.venue || ''}</div>
+      <div class="venue">${esc(m.venue || '')}</div>
     `;
     todayEl.appendChild(card);
   });
@@ -70,7 +70,7 @@ async function renderLive() {
       row.className = cls;
       row.innerHTML = `
         <td class="pos-cell">${idx+1}</td>
-        <td>${getFlag(team.t)} ${team.t}</td>
+        <td>${getFlag(team.t)} ${esc(team.t)}</td>
         <td>${played}</td><td>${team.w}</td><td>${team.d}</td><td>${team.l}</td>
         <td>${team.gf}</td><td>${team.ga}</td>
         <td>${gd > 0 ? '+' : ''}${gd}</td>
@@ -104,7 +104,7 @@ function renderGroups() {
         <span class="drag-handle">&#x2630;</span>
         <span class="pos-badge pos-${idx+1}">${idx+1}</span>
         <span class="team-flag">${getFlag(team)}</span>
-        <span class="team-name">${team}</span>
+        <span class="team-name">${esc(team)}</span>
         <div class="move-btns">
           <button class="move-btn" ${idx===0?'disabled':''} onclick="moveTeam('${g}','${team}',-1)">&#x25B2;</button>
           <button class="move-btn" ${idx===total-1?'disabled':''} onclick="moveTeam('${g}','${team}',1)">&#x25BC;</button>
@@ -197,7 +197,7 @@ function renderThirdPlace() {
     item.innerHTML = `
       <div class="tp-check">${selectedThirdPlace.has(g) ? '&#x2713;' : ''}</div>
       <span style="font-size:28px">${getFlag(team)}</span>
-      <strong style="font-size:13px">${team}</strong>
+      <strong style="font-size:13px">${esc(team)}</strong>
       <span style="color:var(--text-dim);font-size:11px">Group ${g}</span>
       <div style="display:flex;gap:6px;font-size:11px;color:var(--text-dim)">
         <span style="font-weight:700;color:var(--text)">${pts}pts</span>
@@ -233,7 +233,7 @@ function buildMatchCard(mId, isFinal) {
     if (team) {
       const isW = winner === team, isL = winner && winner !== team;
       div.className = 'match-team' + (isW ? ' winner' : '') + (isL ? ' loser' : '');
-      div.innerHTML = `<span class="mt-flag">${getFlag(team)}</span><span class="mt-name">${team}</span><span class="mt-seed">${label}</span>`;
+      div.innerHTML = `<span class="mt-flag">${getFlag(team)}</span><span class="mt-name">${esc(team)}</span><span class="mt-seed">${esc(label)}</span>`;
       div.addEventListener('click', () => selectWinner(mId, team));
     } else {
       div.className = 'match-team empty';

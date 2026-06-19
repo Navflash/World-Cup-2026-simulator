@@ -594,3 +594,9 @@ TP_RAW.split('\n').forEach(line => {
 
 
 function getFlag(team) { return FLAGS[team] || '&#x1F3F3;'; }
+
+function esc(str) {
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
